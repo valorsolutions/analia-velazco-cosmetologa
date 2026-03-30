@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — Admin</title>
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+  <header class="admin-header">
+    <h1>Panel Admin</h1>
+    <button id="logout-btn" class="btn-logout">Cerrar sesión</button>
+  </header>
+
+  <main class="admin-main">
+    <!-- TABS -->
+    <div class="tabs">
+      <button class="tab active" data-tab="servicios">Servicios</button>
+      <button class="tab" data-tab="promociones">Promociones</button>
+    </div>
+
+    <!-- TAB SERVICIOS -->
+    <div id="tab-servicios" class="tab-content active">
+      <div class="section-header">
+        <h2>Servicios</h2>
+        <button id="add-servicio-btn" class="btn-admin">+ Nuevo servicio</button>
+      </div>
+
+      <div class="filter-bar">
+        <label>Filtrar:
+          <select id="filtro-categoria">
+            <option value="">Todas las categorías</option>
+            <option value="facial">Tratamientos Faciales</option>
+            <option value="corporal">Tratamientos Corporales</option>
+            <option value="servicios">Servicios</option>
+          </select>
+        </label>
+      </div>
+
+      <div id="servicios-form-container" class="form-container" hidden>
+        <h3 id="servicio-form-title">Nuevo servicio</h3>
+        <form id="servicio-form">
+          <input type="hidden" id="servicio-id">
+          <div class="form-grid">
+            <div class="field">
+              <label>Nombre *</label>
+              <input type="text" id="s-name" required>
+            </div>
+            <div class="field">
+              <label>Categoría *</label>
+              <select id="s-category" required>
+                <option value="">Seleccionar</option>
+                <option value="facial">Tratamientos Faciales</option>
+                <option value="corporal">Tratamientos Corporales</option>
+                <option value="servicios">Servicios</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Precio (en pesos, sin puntos) *</label>
+              <input type="number" id="s-price" min="0" required>
+            </div>
+            <div class="field">
+              <label>Etiqueta de precio (opcional, ej: "desde $35.000")</label>
+              <input type="text" id="s-price-label" placeholder="Dejar vacío para mostrar el precio automáticamente">
+            </div>
+            <div class="field field-full">
+              <label>Descripción</label>
+              <textarea id="s-description" rows="3"></textarea>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn-admin">Guardar</button>
+            <button type="button" id="cancel-servicio" class="btn-cancel">Cancelar</button>
+          </div>
+          <div id="servicio-error" class="error-msg" hidden></div>
+        </form>
+      </div>
+
+      <table id="servicios-table" class="admin-table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Categoría</th>
+            <th>Precio</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="servicios-tbody">
+          <tr><td colspan="5" class="loading">Cargando...</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- TAB PROMOCIONES -->
+    <div id="tab-promociones" class="tab-content">
+      <div class="section-header">
+        <h2>Promociones</h2>
+        <button id="add-promo-btn" class="btn-admin">+ Nueva promoción</button>
+      </div>
+
+      <div id="promos-form-container" class="form-container" hidden>
+        <h3 id="promo-form-title">Nueva promoción</h3>
+        <form id="promo-form">
+          <input type="hidden" id="promo-id">
+          <div class="form-grid">
+            <div class="field">
+              <label>Título *</label>
+              <input type="text" id="p-title" required>
+            </div>
+            <div class="field">
+              <label>Precio promocional (en pesos) *</label>
+              <input type="number" id="p-promo-price" min="0" required>
+            </div>
+            <div class="field">
+              <label>Precio original (opcional)</label>
+              <input type="number" id="p-original-price" min="0">
+            </div>
+            <div class="field field-full">
+              <label>Descripción</label>
+              <textarea id="p-description" rows="3"></textarea>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn-admin">Guardar</button>
+            <button type="button" id="cancel-promo" class="btn-cancel">Cancelar</button>
+          </div>
+          <div id="promo-error" class="error-msg" hidden></div>
+        </form>
+      </div>
+
+      <div id="promos-limit-warning" class="warning-msg" hidden>
+        ⚠️ Hay 3 promociones activas. Desactivá una antes de activar otra.
+      </div>
+
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Título</th>
+            <th>Precio promo</th>
+            <th>Precio original</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="promos-tbody">
+          <tr><td colspan="5" class="loading">Cargando...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <script>
+    const WORKER_URL = 'https://cosmetologa-analia-velazco-api.valorsolutions.workers.dev'
+  </script>
+  <script src="../js/admin-dashboard.js"></script>
+</body>
+</html>
