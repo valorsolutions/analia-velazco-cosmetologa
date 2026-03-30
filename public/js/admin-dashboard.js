@@ -50,18 +50,27 @@ function renderServiciosTable() {
     return
   }
 
-  const LABELS = { facial: 'Facial', corporal: 'Corporal', servicios: 'Servicios' }
+  const LABELS = { analia: 'Analía', karina: 'Karina' }
 
   tbody.innerHTML = filtered.map(s => `
     <tr>
-      <td>${s.name}${s.description ? `<br><small style="color:#888">${s.description.substring(0, 60)}${s.description.length > 60 ? '…' : ''}</small>` : ''}</td>
-      <td>${LABELS[s.category] || s.category}</td>
-      <td>${s.price_label || formatPrice(s.price)}</td>
-      <td><span class="${s.active ? 'badge-active' : 'badge-inactive'}">${s.active ? 'Visible' : 'Oculto'}</span></td>
       <td>
-        <button class="btn-edit" onclick="editServicio(${s.id})">Editar</button>
-        <button class="btn-toggle" onclick="toggleServicio(${s.id})">${s.active ? 'Ocultar' : 'Mostrar'}</button>
-        <button class="btn-delete" onclick="deleteServicio(${s.id})">Eliminar</button>
+        <div class="card-name">${s.name}</div>
+        ${s.description ? `<div class="card-desc">${s.description}</div>` : ''}
+      </td>
+      <td style="display:none"></td>
+      <td style="display:none"></td>
+      <td style="display:none"></td>
+      <td style="display:block; padding: 0">
+        <div class="card-meta">
+          <span class="card-price">${s.price_label || formatPrice(s.price)}</span>
+          <span class="${s.active ? 'badge-active' : 'badge-inactive'}">${s.active ? 'Publicado' : 'Borrador'}</span>
+        </div>
+        <div style="display:flex; gap:8px; padding:12px 16px; flex-wrap:wrap">
+          <button class="btn-edit" onclick="editServicio(${s.id})">Editar</button>
+          <button class="btn-toggle" onclick="toggleServicio(${s.id})">${s.active ? 'Ocultar' : 'Mostrar'}</button>
+          <button class="btn-delete" onclick="deleteServicio(${s.id})">Eliminar</button>
+        </div>
       </td>
     </tr>
   `).join('')
@@ -158,14 +167,26 @@ function renderPromosTable() {
   }
   tbody.innerHTML = promos.map(p => `
     <tr>
-      <td>${p.title}${p.description ? `<br><small style="color:#888">${p.description.substring(0, 60)}${p.description.length > 60 ? '…' : ''}</small>` : ''}</td>
-      <td>${formatPrice(p.promo_price)}</td>
-      <td>${p.original_price ? formatPrice(p.original_price) : '—'}</td>
-      <td><span class="${p.active ? 'badge-active' : 'badge-inactive'}">${p.active ? 'Activa' : 'Inactiva'}</span></td>
       <td>
-        <button class="btn-edit" onclick="editPromo(${p.id})">Editar</button>
-        <button class="btn-toggle" onclick="togglePromo(${p.id})">${p.active ? 'Desactivar' : 'Activar'}</button>
-        <button class="btn-delete" onclick="deletePromo(${p.id})">Eliminar</button>
+        <div class="card-name">${p.title}</div>
+        ${p.description ? `<div class="card-desc">${p.description}</div>` : ''}
+      </td>
+      <td style="display:none"></td>
+      <td style="display:none"></td>
+      <td style="display:none"></td>
+      <td style="display:block; padding:0">
+        <div class="card-meta">
+          <div>
+            <span class="card-price">${formatPrice(p.promo_price)}</span>
+            ${p.original_price ? `<span style="font-size:0.8rem;color:#999;text-decoration:line-through;margin-left:8px">${formatPrice(p.original_price)}</span>` : ''}
+          </div>
+          <span class="${p.active ? 'badge-active' : 'badge-inactive'}">${p.active ? 'Publicado' : 'Borrador'}</span>
+        </div>
+        <div style="display:flex; gap:8px; padding:12px 16px; flex-wrap:wrap">
+          <button class="btn-edit" onclick="editPromo(${p.id})">Editar</button>
+          <button class="btn-toggle" onclick="togglePromo(${p.id})">${p.active ? 'Ocultar' : 'Mostrar'}</button>
+          <button class="btn-delete" onclick="deletePromo(${p.id})">Eliminar</button>
+        </div>
       </td>
     </tr>
   `).join('')

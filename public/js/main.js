@@ -2,9 +2,8 @@
 // WORKER_URL está definido en index.html como variable global
 
 const CATEGORY_LABELS = {
-  facial: 'Tratamientos Faciales',
-  corporal: 'Tratamientos Corporales',
-  servicios: 'Servicios'
+  analia: 'Servicios de Analía (Piel, Cejas y Pestañas)',
+  karina: 'Servicios de Karina (Manicura, Estética de pies y Masajes)',
 }
 
 function formatPrice(price, label) {
@@ -33,7 +32,7 @@ function renderPromos(promos) {
 
 function renderServicios(data) {
   const container = document.getElementById('servicios-container')
-  const order = ['facial', 'corporal', 'servicios']
+  const order = ['analia', 'karina']
   container.innerHTML = order
     .filter(cat => data[cat]?.length)
     .map(cat => `
@@ -71,4 +70,40 @@ async function init() {
   }
 }
 
+// Interacciones del Header
+function initHeader() {
+  const menuToggle = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu-overlay');
+  const mobileLinks = document.querySelectorAll('.mobile-link');
+  const header = document.getElementById('main-header');
+
+  if (menuToggle && mobileMenu) {
+    menuToggle.addEventListener('click', () => {
+      menuToggle.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+      document.body.classList.toggle('menu-open');
+    });
+
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        menuToggle.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        document.body.classList.remove('menu-open');
+      });
+    });
+  }
+
+  // Efecto de scroll en header
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      header.style.padding = '10px 0';
+      header.style.background = 'rgba(253, 248, 245, 0.95)';
+    } else {
+      header.style.padding = '0';
+      header.style.background = 'rgba(253, 248, 245, 0.85)';
+    }
+  });
+}
+
 init()
+initHeader()

@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS services (
   description TEXT DEFAULT '',
   price INTEGER NOT NULL,
   price_label TEXT,
-  category TEXT NOT NULL CHECK(category IN ('facial', 'corporal', 'servicios')),
+  category TEXT NOT NULL CHECK(category IN ('analia', 'karina')),
   active INTEGER NOT NULL DEFAULT 1,
   sort_order INTEGER NOT NULL DEFAULT 0
 );

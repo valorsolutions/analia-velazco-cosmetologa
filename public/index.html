@@ -12,6 +12,54 @@
 </head>
 <body>
 
+  <header id="main-header" class="main-header">
+    <div class="container header-wrap">
+      <div class="header-logo">
+        <a href="#hero">
+          <img src="img/logo.svg" alt="Analía Velazco Cosmetóloga" id="logo-img">
+        </a>
+      </div>
+
+      <nav class="nav-desktop">
+        <ul class="nav-list">
+          <li><a href="#promociones">Promociones</a></li>
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#sobre-mi">Sobre Mí</a></li>
+          <li><a href="#ubicacion">Ubicación</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a href="https://wa.me/5493413873766" target="_blank" rel="noopener" class="btn-cta-header">
+          Agendar Turno
+        </a>
+        <button id="menu-toggle" class="menu-toggle" aria-label="Abrir menú">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu Media -->
+    <div id="mobile-menu-overlay" class="mobile-menu-overlay">
+      <nav class="nav-mobile">
+        <ul>
+          <li><a href="#promociones" class="mobile-link">Promociones</a></li>
+          <li><a href="#servicios" class="mobile-link">Servicios</a></li>
+          <li><a href="#sobre-mi" class="mobile-link">Sobre Mí</a></li>
+          <li><a href="#ubicacion" class="mobile-link">Ubicación</a></li>
+          <li><a href="#contacto" class="mobile-link">Contacto</a></li>
+        </ul>
+        <div class="mobile-contact-info">
+          <p>San Lorenzo 865, Rosario Centro</p>
+          <a href="https://wa.me/5493413873766" target="_blank" rel="noopener" class="btn btn-primary">Turno Analía</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
   <!-- HERO -->
   <section id="hero">
     <div class="hero-content">
@@ -20,10 +68,10 @@
       <p class="hero-tagline">Cuidado de la piel con ciencia, precisión y amor por cada cliente</p>
       <div class="hero-ctas">
         <a href="https://wa.me/5493413873766" target="_blank" rel="noopener" class="btn btn-primary">
-          Turno con Analía
+          Analía: Piel, Cejas, Bronceado y Makeup
         </a>
         <a href="https://wa.me/5493413888285" target="_blank" rel="noopener" class="btn btn-secondary">
-          Turno con Karina
+          Karina: Manicuría, Pies y Masajes
         </a>
       </div>
     </div>
@@ -61,8 +109,7 @@
         <p>Trabajo con técnicas actualizadas y productos de alta calidad para ofrecerte tratamientos seguros y resultados reales desde la primera sesión.</p>
       </div>
       <div class="sobre-mi-img">
-        <!-- Foto se agrega cuando esté disponible -->
-        <div class="img-placeholder"></div>
+        <img src="img/analia.jpeg" alt="Analía Velazco" class="sobre-mi-photo">
       </div>
     </div>
   </section>
@@ -74,7 +121,7 @@
       <p class="ubicacion-address">San Lorenzo 865, Rosario Centro</p>
       <div class="mapa-wrapper">
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3348.!2d-60.6505!3d-32.9477!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sSan+Lorenzo+865%2C+Rosario!5e0!3m2!1ses!2sar!4v1"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3348.163777558661!2d-60.64771562369888!3d-32.94612307357599!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95b7ab0560a63583%3A0x7d6f51958a70c329!2sSan%20Lorenzo%20865%2C%20S2000%20Rosario%2C%20Santa%20Fe%2C%20Argentina!5e0!3m2!1sen!2sus!4v1711824545000!5m2!1sen!2sus"
           width="100%" height="400" style="border:0;" allowfullscreen loading="lazy"
           referrerpolicy="no-referrer-when-downgrade" title="Ubicación consultorio">
         </iframe>
@@ -89,10 +136,10 @@
       <p class="contacto-horario">Lunes a sábado · Solo con turno previo</p>
       <div class="contacto-btns">
         <a href="https://wa.me/5493413873766" target="_blank" rel="noopener" class="btn btn-primary">
-          WhatsApp Analía
+          WhatsApp Analía: Piel, Cejas, Bronceado y Makeup
         </a>
         <a href="https://wa.me/5493413888285" target="_blank" rel="noopener" class="btn btn-primary">
-          WhatsApp Karina
+          WhatsApp Karina: Manicuría, Pies y Masajes
         </a>
         <a href="https://instagram.com/cosmetologaanaliavelazco" target="_blank" rel="noopener" class="btn btn-secondary">
           Instagram
@@ -103,11 +150,25 @@
 
   <!-- FOOTER -->
   <footer>
-    <div class="container">
-      <p>Cosmetóloga Analía Velazco · San Lorenzo 865, Rosario</p>
-      <p>
-        <a href="https://instagram.com/cosmetologaanaliavelazco" target="_blank" rel="noopener">@cosmetologaanaliavelazco</a>
-      </p>
+    <div class="container footer-inner">
+      <div class="footer-left">
+        <p>© 2026 Cosmetóloga Analía Velazco</p>
+      </div>
+
+      <div class="footer-center">
+        <a href="#hero" class="scroll-top" aria-label="Volver arriba">
+          <span class="dot"></span>
+        </a>
+      </div>
+
+      <div class="footer-right">
+        <div class="footer-attribution">
+          <span class="attribution-text">Diseñado y desarrollado con &lt;3 por</span>
+          <a href="https://valorsolutions.com.ar" target="_blank" rel="noopener">
+            <img src="img/valor%20solutions%20logos/valorsolutions-negra.svg" alt="Valor Solutions" class="footer-logo">
+          </a>
+        </div>
+      </div>
     </div>
   </footer>
 

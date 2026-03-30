@@ -6,9 +6,8 @@ export async function getServices(env) {
      ORDER BY category, sort_order, id`
   ).all()
   return {
-    facial: results.filter(s => s.category === 'facial'),
-    corporal: results.filter(s => s.category === 'corporal'),
-    servicios: results.filter(s => s.category === 'servicios')
+    analia: results.filter(s => s.category === 'analia'),
+    karina: results.filter(s => s.category === 'karina')
   }
 }
 
@@ -24,8 +23,8 @@ export async function createService(body, env) {
   if (!name || !price || !category) {
     throw new Error('name, price y category son requeridos')
   }
-  if (!['facial', 'corporal', 'servicios'].includes(category)) {
-    throw new Error('category debe ser facial, corporal o servicios')
+  if (!['analia', 'karina'].includes(category)) {
+    throw new Error('category debe ser analia o karina')
   }
   const { meta } = await env.DB.prepare(
     `INSERT INTO services (name, description, price, price_label, category, sort_order)
@@ -39,8 +38,8 @@ export async function updateService(id, body, env) {
   if (!name || !price || !category) {
     throw new Error('name, price y category son requeridos')
   }
-  if (!['facial', 'corporal', 'servicios'].includes(category)) {
-    throw new Error('category debe ser facial, corporal o servicios')
+  if (!['analia', 'karina'].includes(category)) {
+    throw new Error('category debe ser analia o karina')
   }
   await env.DB.prepare(
     `UPDATE services
