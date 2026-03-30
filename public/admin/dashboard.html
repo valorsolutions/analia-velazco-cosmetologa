@@ -149,7 +149,7 @@
   </main>
 
   <script>
-    const WORKER_URL = 'https://cosmetologa-analia-velazco-api.valorsolutions.workers.dev'
+    const WORKER_URL = window.location.hostname === 'localhost' ? 'http://localhost:8787' : 'https://cosmetologa-analia-velazco-api.valorsolutions.workers.dev'
   </script>
   <script src="../js/admin-dashboard.js"></script>
 </body>

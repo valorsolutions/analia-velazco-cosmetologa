@@ -104,12 +104,36 @@
     <div class="container sobre-mi-inner">
       <div class="sobre-mi-text">
         <h2>Sobre mí</h2>
-        <p>Soy Analía Velazco, cosmetóloga profesional con pasión por el cuidado de la piel. Descubrí esta profesión y supe que era mi lugar en el mundo.</p>
-        <p>Mi misión es que cada persona que llegue al consultorio se vaya sintiéndose mejor, no solo por fuera, sino por dentro también. Cada paciente es el amor de alguien.</p>
-        <p>Trabajo con técnicas actualizadas y productos de alta calidad para ofrecerte tratamientos seguros y resultados reales desde la primera sesión.</p>
+        <p>Este espacio nace del amor por el bienestar y deseo de acompañar a cada persona a sentirse mejor con su piel y con su imagen.</p>
+        <p>Soy Técnica en Cosmetología, Cosmetría y Estética, combino tratamientos seguros, personalizados y realizados con mucha pasión.</p>
+        <p>En mi lugar encontrarás un espacio profesional donde tu piel se cuida, tu confianza crece y tu belleza natural se ilumina.</p>
       </div>
       <div class="sobre-mi-img">
         <img src="img/analia.jpeg" alt="Analía Velazco" class="sobre-mi-photo">
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERÍA -->
+  <section id="galeria">
+    <div class="container">
+      <div class="galeria-header">
+        <h2>Nuestro espacio</h2>
+        <p class="galeria-subtitle">Un refugio diseñado para tu bienestar y relajación en el centro de Rosario</p>
+      </div>
+      <div class="galeria-grid">
+        <div class="galeria-item">
+          <img src="IMG/frente-loca.jpeg" alt="Recepción Analía Velazco" class="galeria-img">
+        </div>
+        <div class="galeria-item">
+          <img src="IMG/consolturio-horizontal.jpeg" alt="Consultorio profesional" class="galeria-img">
+        </div>
+        <div class="galeria-item">
+          <img src="IMG/pilar.jpeg" alt="Detalle artístico en el local" class="galeria-img">
+        </div>
+        <div class="galeria-item">
+          <img src="IMG/monje.jpeg" alt="Ambiente de relajación" class="galeria-img">
+        </div>
       </div>
     </div>
   </section>
@@ -173,7 +197,7 @@
   </footer>
 
   <script>
-    const WORKER_URL = 'https://cosmetologa-analia-velazco-api.valorsolutions.workers.dev'
+    const WORKER_URL = window.location.hostname === 'localhost' ? 'http://localhost:8787' : 'https://cosmetologa-analia-velazco-api.valorsolutions.workers.dev'
   </script>
   <script src="js/main.js"></script>
 </body>

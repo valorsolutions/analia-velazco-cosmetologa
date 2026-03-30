@@ -10,7 +10,11 @@ INSERT INTO services (name, description, price, price_label, category, sort_orde
   ('Ritual Piel de Porcelana', 'Radiofrecuencia + Vitamina C + Ácido renovador para un glow inmediato.', 45000, '$45.000', 'analia', 40),
   ('Dermaplaning', 'Peeling con bisturí para una suavidad y luminosidad extrema.', 35000, 'desde $35.000', 'analia', 50),
   ('Microneedling / Dermapen', 'Rejuvenecimiento profundo para firmeza y renovación celular.', 39000, 'desde $39.000', 'analia', 60),
-  ('Tratamientos Corporales', 'Reductores, reafirmantes y modeladores (abdomen, celulitis, flacidez).', 31000, 'desde $31.000', 'analia', 70),
+  ('Tratamientos Corporales', 'Tratamientos combinados (Abdomen, celulitis, piernas cansadas, flacidez). 1 sesión $31.000 | Pack 3: $80.000 | Pack 4: $95.000.', 31000, 'desde $31.000', 'analia', 70),
+  ('Ondas de choque', '', 31000, '$31.000', 'analia', 71),
+  ('Crio-radiofrecuencia', '', 31000, '$31.000', 'analia', 72),
+  ('Presoterapia', '', 31000, '$31.000', 'analia', 73),
+  ('Maderoterapia', '', 31000, '$31.000', 'analia', 74),
   ('Bronceado Orgánico', 'Color dorado natural, libre de químicos y resultados inmediatos.', 37000, '$37.000', 'analia', 80),
   ('Maquillaje Profesional', 'Makeup social y para eventos con las mejores técnicas.', 65000, '$65.000', 'analia', 100);
 
