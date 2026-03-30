@@ -1,0 +1,377 @@
+/* =====================
+   Variables y reset
+   ===================== */
+:root {
+  --rosa: #D4A5B5;
+  --rosa-claro: #F5EEF1;
+  --negro: #1A1A1A;
+  --gris: #6B6B6B;
+  --blanco: #FFFFFF;
+  --crema: #FDF8F5;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --max-width: 1100px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-sans);
+  color: var(--negro);
+  background: var(--blanco);
+  line-height: 1.6;
+}
+
+/* =====================
+   Utilidades
+   ===================== */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 400;
+  margin-bottom: 48px;
+  text-align: center;
+}
+
+.loading {
+  text-align: center;
+  color: var(--gris);
+  padding: 48px 0;
+  font-size: 0.9rem;
+}
+
+/* =====================
+   Botones
+   ===================== */
+.btn {
+  display: inline-block;
+  padding: 14px 32px;
+  border-radius: 2px;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: opacity 0.2s;
+  cursor: pointer;
+}
+.btn:hover { opacity: 0.85; }
+
+.btn-primary {
+  background: var(--rosa);
+  color: var(--blanco);
+  border: 2px solid var(--rosa);
+}
+.btn-secondary {
+  background: transparent;
+  color: var(--negro);
+  border: 2px solid var(--negro);
+}
+
+/* =====================
+   Hero
+   ===================== */
+#hero {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--crema);
+  text-align: center;
+  padding: 80px 24px;
+}
+
+.hero-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--rosa);
+  margin-bottom: 16px;
+}
+
+#hero h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 400;
+  line-height: 1.1;
+  margin-bottom: 24px;
+}
+
+.hero-tagline {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--gris);
+  max-width: 500px;
+  margin: 0 auto 40px;
+  font-weight: 300;
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* =====================
+   Promociones
+   ===================== */
+#promociones {
+  padding: 100px 0;
+  background: var(--blanco);
+}
+
+.promos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.promo-card {
+  border: 1px solid #E8E0E4;
+  padding: 32px;
+  background: var(--rosa-claro);
+  position: relative;
+}
+
+.promo-badge {
+  position: absolute;
+  top: -12px;
+  left: 24px;
+  background: var(--rosa);
+  color: var(--blanco);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+}
+
+.promo-card h3 {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  font-weight: 400;
+  margin-bottom: 12px;
+}
+
+.promo-card p {
+  color: var(--gris);
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+.promo-precio {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.promo-precio .precio-nuevo {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  color: var(--negro);
+}
+
+.promo-precio .precio-original {
+  font-size: 0.85rem;
+  color: var(--gris);
+  text-decoration: line-through;
+}
+
+/* =====================
+   Servicios
+   ===================== */
+#servicios {
+  padding: 100px 0;
+  background: var(--crema);
+}
+
+.categoria-bloque {
+  margin-bottom: 64px;
+}
+
+.categoria-bloque:last-child { margin-bottom: 0; }
+
+.categoria-titulo {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--rosa);
+  border-bottom: 1px solid #E0D4DA;
+  padding-bottom: 12px;
+  margin-bottom: 24px;
+}
+
+.servicios-lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1px;
+  background: #E0D4DA;
+}
+
+.servicio-item {
+  background: var(--crema);
+  padding: 20px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.servicio-info { flex: 1; }
+
+.servicio-nombre {
+  font-weight: 500;
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+}
+
+.servicio-descripcion {
+  font-size: 0.8rem;
+  color: var(--gris);
+  line-height: 1.4;
+}
+
+.servicio-precio {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* =====================
+   Sobre mí
+   ===================== */
+#sobre-mi {
+  padding: 100px 0;
+  background: var(--blanco);
+}
+
+.sobre-mi-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.sobre-mi-text h2 { text-align: left; margin-bottom: 24px; }
+
+.sobre-mi-text p {
+  color: var(--gris);
+  margin-bottom: 16px;
+  font-size: 0.95rem;
+}
+
+.img-placeholder {
+  width: 100%;
+  aspect-ratio: 3/4;
+  background: var(--rosa-claro);
+}
+
+@media (max-width: 768px) {
+  .sobre-mi-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .sobre-mi-img { order: -1; }
+  .img-placeholder { aspect-ratio: 4/3; }
+}
+
+/* =====================
+   Ubicación
+   ===================== */
+#ubicacion {
+  padding: 100px 0;
+  background: var(--crema);
+}
+
+.ubicacion-address {
+  text-align: center;
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+  color: var(--gris);
+}
+
+.mapa-wrapper {
+  border: 1px solid #E0D4DA;
+  overflow: hidden;
+}
+
+/* =====================
+   Contacto
+   ===================== */
+#contacto {
+  padding: 100px 0;
+  background: var(--negro);
+  text-align: center;
+}
+
+#contacto h2 {
+  color: var(--blanco);
+  margin-bottom: 16px;
+}
+
+.contacto-horario {
+  color: var(--rosa);
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 48px;
+}
+
+.contacto-btns {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+#contacto .btn-primary {
+  background: var(--rosa);
+  border-color: var(--rosa);
+}
+
+#contacto .btn-secondary {
+  color: var(--blanco);
+  border-color: var(--blanco);
+}
+
+/* =====================
+   Footer
+   ===================== */
+footer {
+  background: var(--negro);
+  border-top: 1px solid #2A2A2A;
+  padding: 32px 0;
+  text-align: center;
+}
+
+footer p {
+  font-size: 0.8rem;
+  color: var(--gris);
+  margin-bottom: 4px;
+}
+
+footer a {
+  color: var(--rosa);
+  text-decoration: none;
+}
+
+/* =====================
+   Responsive
+   ===================== */
+@media (max-width: 600px) {
+  .hero-ctas { flex-direction: column; align-items: center; }
+  .contacto-btns { flex-direction: column; align-items: center; }
+  .servicios-lista { grid-template-columns: 1fr; }
+}
