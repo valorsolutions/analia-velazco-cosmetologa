@@ -28,7 +28,7 @@ function renderGiftCards(giftcards) {
         <h3>${gc.title}</h3>
         <div class="giftcard-price">${formatPrice(gc.price)}</div>
         ${gc.description ? `<p class="giftcard-desc">${gc.description}</p>` : ''}
-        <a href="${waUrl}" target="_blank" class="btn-primary">Comprar para regalar</a>
+        <a href="${waUrl}" target="_blank" class="btn-primary">Regalar Gift Card</a>
       </div>
     `
   }).join('')
