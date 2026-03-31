@@ -6,6 +6,9 @@ import {
 import {
   getPromotions, getAllPromotions, createPromotion, updatePromotion, deletePromotion, togglePromotion
 } from './promotions.js'
+import {
+  getGiftCards, getAllGiftCards, createGiftCard, updateGiftCard, deleteGiftCard, toggleGiftCard
+} from './giftcards.js'
 
 const CORS = {
   'Access-Control-Allow-Origin': '*',
@@ -38,6 +41,9 @@ export default {
       if (path === '/api/promotions' && method === 'GET') {
         return json(await getPromotions(env))
       }
+      if (path === '/api/giftcards' && method === 'GET') {
+        return json(await getGiftCards(env))
+      }
 
       // --- Auth ---
       if (path === '/api/auth/login' && method === 'POST') {
@@ -58,6 +64,9 @@ export default {
       }
       if (path === '/api/admin/promotions' && method === 'GET') {
         return json(await getAllPromotions(env))
+      }
+      if (path === '/api/admin/giftcards' && method === 'GET') {
+        return json(await getAllGiftCards(env))
       }
 
       // Services CRUD
@@ -82,6 +91,18 @@ export default {
         if (promoMatch[2] === '/toggle' && method === 'PATCH') return json(await togglePromotion(id, env))
         if (method === 'PUT') return json(await updatePromotion(id, await request.json(), env))
         if (method === 'DELETE') return json(await deletePromotion(id, env))
+      }
+
+      // Gift Cards CRUD
+      if (path === '/api/giftcards' && method === 'POST') {
+        return json(await createGiftCard(await request.json(), env), 201)
+      }
+      const gcMatch = path.match(/^\/api\/giftcards\/(\d+)(\/toggle)?$/)
+      if (gcMatch) {
+        const id = parseInt(gcMatch[1])
+        if (gcMatch[2] === '/toggle' && method === 'PATCH') return json(await toggleGiftCard(id, env))
+        if (method === 'PUT') return json(await updateGiftCard(id, await request.json(), env))
+        if (method === 'DELETE') return json(await deleteGiftCard(id, env))
       }
 
       return json({ error: 'Not found' }, 404)

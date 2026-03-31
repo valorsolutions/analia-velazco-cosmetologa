@@ -8,7 +8,30 @@ const CATEGORY_LABELS = {
 
 function formatPrice(price, label) {
   if (label) return label
-  return '$' + price.toLocaleString('es-AR')
+  return '$' + Number(price).toLocaleString('es-AR')
+}
+
+function renderGiftCards(giftcards) {
+  const container = document.getElementById('giftcards-container')
+  if (!giftcards || !giftcards.length) {
+    container.innerHTML = '<p class="loading">Próximamente... Gift Cards disponibles para regalar.</p>'
+    return
+  }
+
+  container.innerHTML = giftcards.map(gc => {
+    const message = encodeURIComponent(`Hola Analía! Quiero comprar la "${gc.title}" ($${gc.price.toLocaleString('es-AR')}) para regalar. Me podrías pasar los datos para el pago?`)
+    const waUrl = `https://wa.me/5493413873766?text=${message}`
+    
+    return `
+      <div class="giftcard-card">
+        <div class="giftcard-icon">🎁</div>
+        <h3>${gc.title}</h3>
+        <div class="giftcard-price">${formatPrice(gc.price)}</div>
+        ${gc.description ? `<p class="giftcard-desc">${gc.description}</p>` : ''}
+        <a href="${waUrl}" target="_blank" class="btn-primary">Comprar para regalar</a>
+      </div>
+    `
+  }).join('')
 }
 
 function renderPromos(promos) {
@@ -55,18 +78,22 @@ function renderServicios(data) {
 
 async function init() {
   try {
-    const [promos, servicios] = await Promise.all([
+    const [promos, servicios, giftcards] = await Promise.all([
       fetch(`${WORKER_URL}/api/promotions`).then(r => r.json()),
-      fetch(`${WORKER_URL}/api/services`).then(r => r.json())
+      fetch(`${WORKER_URL}/api/services`).then(r => r.json()),
+      fetch(`${WORKER_URL}/api/giftcards`).then(r => r.json())
     ])
     renderPromos(promos)
     renderServicios(servicios)
+    renderGiftCards(giftcards)
   } catch (e) {
     console.error('Error cargando datos:', e)
     document.getElementById('promos-grid').innerHTML =
       '<p class="loading">Error al cargar promociones.</p>'
     document.getElementById('servicios-container').innerHTML =
       '<p class="loading">Error al cargar servicios.</p>'
+    document.getElementById('giftcards-container').innerHTML =
+      '<p class="loading">Error al cargar Gift Cards.</p>'
   }
 }
 

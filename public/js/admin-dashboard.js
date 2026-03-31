@@ -12,6 +12,57 @@ function formatPrice(price) {
   return '$' + Number(price).toLocaleString('es-AR')
 }
 
+// ============================================================
+// UI UTILS (MODALS & TOASTS)
+// ============================================================
+
+function openModal(id) {
+  const modal = document.getElementById(id)
+  if (!modal) return
+  modal.classList.add('active')
+  document.body.style.overflow = 'hidden'
+}
+
+function closeModal(id) {
+  const modal = document.getElementById(id)
+  if (!modal) return
+  modal.classList.remove('active')
+  document.body.style.overflow = ''
+}
+
+// Close modals on clicking overlay or cancel buttons
+document.addEventListener('click', (e) => {
+  if (e.target.classList.contains('modal-overlay')) {
+    closeModal(e.target.id)
+  }
+  if (e.target.classList.contains('btn-close-modal')) {
+    const modal = e.target.closest('.modal-overlay')
+    if (modal) closeModal(modal.id)
+  }
+})
+
+function showToast(message, type = 'success') {
+  const container = document.getElementById('toast-container')
+  const toast = document.createElement('div')
+  toast.className = `toast toast-${type}`
+  toast.innerHTML = `
+    <span>${message}</span>
+    <button class="toast-close">&times;</button>
+  `
+  container.appendChild(toast)
+  
+  // Animate in
+  setTimeout(() => toast.classList.add('active'), 10)
+  
+  const close = () => {
+    toast.classList.remove('active')
+    setTimeout(() => toast.remove(), 400)
+  }
+  
+  toast.querySelector('.toast-close').onclick = close
+  setTimeout(close, 4000)
+}
+
 // --- Logout ---
 document.getElementById('logout-btn').addEventListener('click', () => {
   localStorage.removeItem('admin_token')
@@ -50,8 +101,6 @@ function renderServiciosTable() {
     return
   }
 
-  const LABELS = { analia: 'Analía', karina: 'Karina' }
-
   tbody.innerHTML = filtered.map(s => `
     <tr>
       <td>
@@ -78,17 +127,12 @@ function renderServiciosTable() {
 
 document.getElementById('filtro-categoria').addEventListener('change', renderServiciosTable)
 
-// Formulario nuevo servicio
 document.getElementById('add-servicio-btn').addEventListener('click', () => {
   document.getElementById('servicio-form-title').textContent = 'Nuevo servicio'
   document.getElementById('servicio-id').value = ''
   document.getElementById('servicio-form').reset()
-  document.getElementById('servicios-form-container').hidden = false
-  document.getElementById('servicios-form-container').scrollIntoView({ behavior: 'smooth' })
-})
-
-document.getElementById('cancel-servicio').addEventListener('click', () => {
-  document.getElementById('servicios-form-container').hidden = true
+  document.getElementById('servicio-error').hidden = true
+  openModal('modal-servicio')
 })
 
 window.editServicio = function(id) {
@@ -101,8 +145,8 @@ window.editServicio = function(id) {
   document.getElementById('s-price').value = s.price
   document.getElementById('s-price-label').value = s.price_label || ''
   document.getElementById('s-description').value = s.description || ''
-  document.getElementById('servicios-form-container').hidden = false
-  document.getElementById('servicios-form-container').scrollIntoView({ behavior: 'smooth' })
+  document.getElementById('servicio-error').hidden = true
+  openModal('modal-servicio')
 }
 
 document.getElementById('servicio-form').addEventListener('submit', async (e) => {
@@ -125,7 +169,9 @@ document.getElementById('servicio-form').addEventListener('submit', async (e) =>
     const res = await fetch(url, { method, headers: authHeaders(), body: JSON.stringify(body) })
     const data = await res.json()
     if (!res.ok) throw new Error(data.error)
-    document.getElementById('servicios-form-container').hidden = true
+    
+    closeModal('modal-servicio')
+    showToast(id ? 'Servicio actualizado' : 'Servicio creado con éxito')
     await loadServicios()
   } catch (err) {
     errorEl.textContent = err.message
@@ -135,13 +181,15 @@ document.getElementById('servicio-form').addEventListener('submit', async (e) =>
 
 window.toggleServicio = async function(id) {
   await fetch(`${WORKER_URL}/api/services/${id}/toggle`, { method: 'PATCH', headers: authHeaders() })
+  showToast('Estado cambiado')
   await loadServicios()
 }
 
 window.deleteServicio = async function(id) {
   const s = servicios.find(x => x.id === id)
-  if (!confirm(`¿Eliminar "${s?.name}"? Esta acción no se puede deshacer.`)) return
+  if (!confirm(`¿Eliminar "${s?.name}"?`)) return
   await fetch(`${WORKER_URL}/api/services/${id}`, { method: 'DELETE', headers: authHeaders() })
+  showToast('Servicio eliminado', 'error')
   await loadServicios()
 }
 
@@ -196,12 +244,8 @@ document.getElementById('add-promo-btn').addEventListener('click', () => {
   document.getElementById('promo-form-title').textContent = 'Nueva promoción'
   document.getElementById('promo-id').value = ''
   document.getElementById('promo-form').reset()
-  document.getElementById('promos-form-container').hidden = false
-  document.getElementById('promos-form-container').scrollIntoView({ behavior: 'smooth' })
-})
-
-document.getElementById('cancel-promo').addEventListener('click', () => {
-  document.getElementById('promos-form-container').hidden = true
+  document.getElementById('promo-error').hidden = true
+  openModal('modal-promo')
 })
 
 window.editPromo = function(id) {
@@ -213,8 +257,8 @@ window.editPromo = function(id) {
   document.getElementById('p-promo-price').value = p.promo_price
   document.getElementById('p-original-price').value = p.original_price || ''
   document.getElementById('p-description').value = p.description || ''
-  document.getElementById('promos-form-container').hidden = false
-  document.getElementById('promos-form-container').scrollIntoView({ behavior: 'smooth' })
+  document.getElementById('promo-error').hidden = true
+  openModal('modal-promo')
 }
 
 document.getElementById('promo-form').addEventListener('submit', async (e) => {
@@ -237,7 +281,9 @@ document.getElementById('promo-form').addEventListener('submit', async (e) => {
     const res = await fetch(url, { method, headers: authHeaders(), body: JSON.stringify(body) })
     const data = await res.json()
     if (!res.ok) throw new Error(data.error)
-    document.getElementById('promos-form-container').hidden = true
+    
+    closeModal('modal-promo')
+    showToast(id ? 'Promoción actualizada' : 'Promoción creada')
     await loadPromos()
   } catch (err) {
     errorEl.textContent = err.message
@@ -249,6 +295,7 @@ window.togglePromo = async function(id) {
   const res = await fetch(`${WORKER_URL}/api/promotions/${id}/toggle`, { method: 'PATCH', headers: authHeaders() })
   const data = await res.json()
   if (!res.ok) { alert(data.error); return }
+  showToast('Estado de promoción cambiado')
   await loadPromos()
 }
 
@@ -256,9 +303,114 @@ window.deletePromo = async function(id) {
   const p = promos.find(x => x.id === id)
   if (!confirm(`¿Eliminar "${p?.title}"?`)) return
   await fetch(`${WORKER_URL}/api/promotions/${id}`, { method: 'DELETE', headers: authHeaders() })
+  showToast('Promoción eliminada', 'error')
   await loadPromos()
+}
+
+// ============================================================
+// GIFT CARDS
+// ============================================================
+let giftcards = []
+
+async function loadGiftCards() {
+  const res = await fetch(`${WORKER_URL}/api/admin/giftcards`, { headers: authHeaders() })
+  giftcards = await res.json()
+  renderGiftCardsTable()
+}
+
+function renderGiftCardsTable() {
+  const tbody = document.getElementById('giftcards-tbody')
+  if (!giftcards.length) {
+    tbody.innerHTML = '<tr><td colspan="5" class="loading">Sin Gift Cards.</td></tr>'
+    return
+  }
+  tbody.innerHTML = giftcards.map(gc => `
+    <tr>
+      <td>
+        <div class="card-name">${gc.title}</div>
+        ${gc.description ? `<div class="card-desc">${gc.description}</div>` : ''}
+      </td>
+      <td style="display:none"></td>
+      <td style="display:none"></td>
+      <td style="display:none"></td>
+      <td style="display:block; padding:0">
+        <div class="card-meta">
+          <span class="card-price">${formatPrice(gc.price)}</span>
+          <span class="${gc.active ? 'badge-active' : 'badge-inactive'}">${gc.active ? 'Publicado' : 'Borrador'}</span>
+        </div>
+        <div style="display:flex; gap:8px; padding:12px 16px; flex-wrap:wrap">
+          <button class="btn-edit" onclick="editGiftCard(${gc.id})">Editar</button>
+          <button class="btn-toggle" onclick="toggleGiftCard(${gc.id})">${gc.active ? 'Ocultar' : 'Mostrar'}</button>
+          <button class="btn-delete" onclick="deleteGiftCard(${gc.id})">Eliminar</button>
+        </div>
+      </td>
+    </tr>
+  `).join('')
+}
+
+document.getElementById('add-giftcard-btn').addEventListener('click', () => {
+  document.getElementById('giftcard-form-title').textContent = 'Nueva Gift Card'
+  document.getElementById('giftcard-id').value = ''
+  document.getElementById('giftcard-form').reset()
+  document.getElementById('giftcard-error').hidden = true
+  openModal('modal-giftcard')
+})
+
+window.editGiftCard = function(id) {
+  const gc = giftcards.find(x => x.id === id)
+  if (!gc) return
+  document.getElementById('giftcard-form-title').textContent = 'Editar Gift Card'
+  document.getElementById('giftcard-id').value = gc.id
+  document.getElementById('gc-title').value = gc.title
+  document.getElementById('gc-price').value = gc.price
+  document.getElementById('gc-description').value = gc.description || ''
+  document.getElementById('giftcard-error').hidden = true
+  openModal('modal-giftcard')
+}
+
+document.getElementById('giftcard-form').addEventListener('submit', async (e) => {
+  e.preventDefault()
+  const errorEl = document.getElementById('giftcard-error')
+  errorEl.hidden = true
+
+  const id = document.getElementById('giftcard-id').value
+  const body = {
+    title: document.getElementById('gc-title').value.trim(),
+    price: parseInt(document.getElementById('gc-price').value),
+    description: document.getElementById('gc-description').value.trim()
+  }
+
+  try {
+    const url = id ? `${WORKER_URL}/api/giftcards/${id}` : `${WORKER_URL}/api/giftcards`
+    const method = id ? 'PUT' : 'POST'
+    const res = await fetch(url, { method, headers: authHeaders(), body: JSON.stringify(body) })
+    const data = await res.json()
+    if (!res.ok) throw new Error(data.error)
+    
+    closeModal('modal-giftcard')
+    showToast(id ? 'Gift Card actualizada' : 'Gift Card creada')
+    await loadGiftCards()
+  } catch (err) {
+    errorEl.textContent = err.message
+    errorEl.hidden = false
+  }
+})
+
+window.toggleGiftCard = async function(id) {
+  await fetch(`${WORKER_URL}/api/giftcards/${id}/toggle`, { method: 'PATCH', headers: authHeaders() })
+  showToast('Estado de Gift Card cambiado')
+  await loadGiftCards()
+}
+
+window.deleteGiftCard = async function(id) {
+  const gc = giftcards.find(x => x.id === id)
+  if (!confirm(`¿Eliminar "${gc?.title}"?`)) return
+  await fetch(`${WORKER_URL}/api/giftcards/${id}`, { method: 'DELETE', headers: authHeaders() })
+  showToast('Gift Card eliminada', 'error')
+  await loadGiftCards()
 }
 
 // --- Init ---
 loadServicios()
 loadPromos()
+loadGiftCards()

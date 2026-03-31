@@ -17,6 +17,7 @@
     <div class="tabs">
       <button class="tab active" data-tab="servicios">Servicios</button>
       <button class="tab" data-tab="promociones">Promociones</button>
+      <button class="tab" data-tab="giftcards">Gift Cards</button>
     </div>
 
     <!-- TAB SERVICIOS -->
@@ -36,42 +37,46 @@
         </label>
       </div>
 
-      <div id="servicios-form-container" class="form-container" hidden>
-        <h3 id="servicio-form-title">Nuevo servicio</h3>
-        <form id="servicio-form">
-          <input type="hidden" id="servicio-id">
-          <div class="form-grid">
-            <div class="field">
-              <label>Nombre *</label>
-              <input type="text" id="s-name" required>
-            </div>
-            <div class="field">
-              <label>Categoría *</label>
-              <select id="s-category" required>
-                <option value="">Seleccionar</option>
-                <option value="analia">Servicios de Analía</option>
-                <option value="karina">Servicios de Karina</option>
-              </select>
-            </div>
-            <div class="field">
-              <label>Precio (en pesos, sin puntos) *</label>
-              <input type="number" id="s-price" min="0" required>
-            </div>
-            <div class="field">
-              <label>Etiqueta de precio (opcional, ej: "desde $35.000")</label>
-              <input type="text" id="s-price-label" placeholder="Dejar vacío para mostrar el precio automáticamente">
-            </div>
-            <div class="field field-full">
-              <label>Descripción</label>
-              <textarea id="s-description" rows="3"></textarea>
-            </div>
+      <div id="modal-servicio" class="modal-overlay">
+        <div class="modal-content">
+          <div class="form-container">
+            <h3 id="servicio-form-title">Nuevo servicio</h3>
+            <form id="servicio-form">
+              <input type="hidden" id="servicio-id">
+              <div class="form-grid">
+                <div class="field">
+                  <label>Nombre *</label>
+                  <input type="text" id="s-name" required>
+                </div>
+                <div class="field">
+                  <label>Categoría *</label>
+                  <select id="s-category" required>
+                    <option value="">Seleccionar</option>
+                    <option value="analia">Servicios de Analía</option>
+                    <option value="karina">Servicios de Karina</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label>Precio (en pesos, sin puntos) *</label>
+                  <input type="number" id="s-price" min="0" required>
+                </div>
+                <div class="field">
+                  <label>Etiqueta de precio (opcional, ej: "desde $35.000")</label>
+                  <input type="text" id="s-price-label" placeholder="Dejar vacío para mostrar el precio automáticamente">
+                </div>
+                <div class="field field-full">
+                  <label>Descripción</label>
+                  <textarea id="s-description" rows="3"></textarea>
+                </div>
+              </div>
+              <div class="form-actions">
+                <button type="submit" class="btn-admin">Guardar</button>
+                <button type="button" class="btn-cancel btn-close-modal">Cancelar</button>
+              </div>
+              <div id="servicio-error" class="error-msg" hidden></div>
+            </form>
           </div>
-          <div class="form-actions">
-            <button type="submit" class="btn-admin">Guardar</button>
-            <button type="button" id="cancel-servicio" class="btn-cancel">Cancelar</button>
-          </div>
-          <div id="servicio-error" class="error-msg" hidden></div>
-        </form>
+        </div>
       </div>
 
       <table id="servicios-table" class="admin-table">
@@ -97,34 +102,38 @@
         <button id="add-promo-btn" class="btn-admin">+ Nueva promoción</button>
       </div>
 
-      <div id="promos-form-container" class="form-container" hidden>
-        <h3 id="promo-form-title">Nueva promoción</h3>
-        <form id="promo-form">
-          <input type="hidden" id="promo-id">
-          <div class="form-grid">
-            <div class="field">
-              <label>Título *</label>
-              <input type="text" id="p-title" required>
-            </div>
-            <div class="field">
-              <label>Precio promocional (en pesos) *</label>
-              <input type="number" id="p-promo-price" min="0" required>
-            </div>
-            <div class="field">
-              <label>Precio original (opcional)</label>
-              <input type="number" id="p-original-price" min="0">
-            </div>
-            <div class="field field-full">
-              <label>Descripción</label>
-              <textarea id="p-description" rows="3"></textarea>
-            </div>
+      <div id="modal-promo" class="modal-overlay">
+        <div class="modal-content">
+          <div class="form-container">
+            <h3 id="promo-form-title">Nueva promoción</h3>
+            <form id="promo-form">
+              <input type="hidden" id="promo-id">
+              <div class="form-grid">
+                <div class="field">
+                  <label>Título *</label>
+                  <input type="text" id="p-title" required>
+                </div>
+                <div class="field">
+                  <label>Precio promocional (en pesos) *</label>
+                  <input type="number" id="p-promo-price" min="0" required>
+                </div>
+                <div class="field">
+                  <label>Precio original (opcional)</label>
+                  <input type="number" id="p-original-price" min="0">
+                </div>
+                <div class="field field-full">
+                  <label>Descripción</label>
+                  <textarea id="p-description" rows="3"></textarea>
+                </div>
+              </div>
+              <div class="form-actions">
+                <button type="submit" class="btn-admin">Guardar</button>
+                <button type="button" class="btn-cancel btn-close-modal">Cancelar</button>
+              </div>
+              <div id="promo-error" class="error-msg" hidden></div>
+            </form>
           </div>
-          <div class="form-actions">
-            <button type="submit" class="btn-admin">Guardar</button>
-            <button type="button" id="cancel-promo" class="btn-cancel">Cancelar</button>
-          </div>
-          <div id="promo-error" class="error-msg" hidden></div>
-        </form>
+        </div>
       </div>
 
       <div id="promos-limit-warning" class="warning-msg" hidden>
@@ -146,7 +155,54 @@
         </tbody>
       </table>
     </div>
+
+    <!-- TAB GIFT CARDS -->
+    <div id="tab-giftcards" class="tab-content">
+      <div class="section-header">
+        <h2>Gift Cards</h2>
+        <button id="add-giftcard-btn" class="btn-admin">+ Nuevo Gift Card</button>
+      </div>
+
+      <div id="modal-giftcard" class="modal-overlay">
+        <div class="modal-content">
+          <div class="form-container">
+            <h3 id="giftcard-form-title">Nueva Gift Card</h3>
+            <form id="giftcard-form">
+              <input type="hidden" id="giftcard-id">
+              <div class="form-grid">
+                <div class="field">
+                  <label>Título (ej: Gift Card $20.000) *</label>
+                  <input type="text" id="gc-title" required>
+                </div>
+                <div class="field">
+                  <label>Precio *</label>
+                  <input type="number" id="gc-price" min="0" required>
+                </div>
+                <div class="field field-full">
+                  <label>Descripción (ej: Ideal para regalar belleza)</label>
+                  <textarea id="gc-description" rows="3"></textarea>
+                </div>
+              </div>
+              <div class="form-actions">
+                <button type="submit" class="btn-admin">Guardar</button>
+                <button type="button" class="btn-cancel btn-close-modal">Cancelar</button>
+              </div>
+              <div id="giftcard-error" class="error-msg" hidden></div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <table class="admin-table">
+        <tbody id="giftcards-tbody">
+          <tr><td colspan="5" class="loading">Cargando...</td></tr>
+        </tbody>
+      </table>
+    </div>
   </main>
+
+  <!-- TOASTS -->
+  <div id="toast-container" class="toast-container"></div>
 
   <script>
     const WORKER_URL = window.location.hostname === 'localhost' ? 'http://localhost:8787' : 'https://cosmetologa-analia-velazco-api.valorsolutions.workers.dev'

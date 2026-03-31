@@ -706,3 +706,87 @@ footer {
   .contacto-btns { flex-direction: column; align-items: center; }
   .servicios-lista { grid-template-columns: 1fr; }
 }
+
+/* =====================
+   Gift Cards
+   ===================== */
+#gift-cards {
+  padding: 100px 0;
+  background: var(--blanco);
+  text-align: center;
+}
+
+.section-subtitle {
+  color: var(--gris);
+  margin: -32px auto 48px;
+  max-width: 600px;
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+.giftcards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.giftcard-card {
+  background: var(--rosa-claro);
+  border: 1px solid #E8E0E4;
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.giftcard-card::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  border: 1px solid rgba(212, 165, 181, 0.3);
+  pointer-events: none;
+}
+
+.giftcard-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(212, 165, 181, 0.15);
+  border-color: var(--rosa);
+}
+
+.giftcard-icon {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: var(--rosa);
+}
+
+.giftcard-card h3 {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  margin-bottom: 12px;
+}
+
+.giftcard-price {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  color: var(--negro);
+  margin-bottom: 16px;
+}
+
+.giftcard-desc {
+  font-size: 0.9rem;
+  color: var(--gris);
+  margin-bottom: 32px;
+  line-height: 1.5;
+}
+
+#gift-cards .btn-primary {
+  width: 100%;
+}
