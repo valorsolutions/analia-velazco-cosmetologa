@@ -28,13 +28,11 @@
       </div>
 
       <div class="filter-bar">
-        <label>Filtrar:
-          <select id="filtro-categoria">
-            <option value="">Todas las categorías</option>
-            <option value="analia">Servicios de Analía</option>
-            <option value="karina">Servicios de Karina</option>
-          </select>
-        </label>
+        <div class="filter-pills" id="filtro-servicios">
+          <button class="pill active" data-value="">Todas</button>
+          <button class="pill" data-value="analia">Analía</button>
+          <button class="pill" data-value="karina">Karina</button>
+        </div>
       </div>
 
       <div id="modal-servicio" class="modal-overlay">

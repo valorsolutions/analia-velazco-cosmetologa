@@ -593,3 +593,46 @@ body {
   margin-left: 12px;
 }
 .toast-close:hover { color: var(--blanco); }
+
+/* ====================
+   Filter Pills (Segmented Control)
+   ==================== */
+.filter-bar {
+  margin-bottom: 24px;
+}
+
+.filter-pills {
+  display: flex;
+  background: #EFEFEF;
+  padding: 4px;
+  border-radius: 12px;
+  width: fit-content;
+  gap: 2px;
+}
+
+.pill {
+  border: none;
+  background: none;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--gris);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pill.active {
+  background: var(--blanco);
+  color: var(--negro);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.pill:hover:not(.active) {
+  color: var(--negro);
+  background: rgba(0,0,0,0.03);
+}

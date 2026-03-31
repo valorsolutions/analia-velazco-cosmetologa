@@ -92,7 +92,8 @@ async function loadServicios() {
 }
 
 function renderServiciosTable() {
-  const filtro = document.getElementById('filtro-categoria').value
+  const activePill = document.querySelector('#filtro-servicios .pill.active')
+  const filtro = activePill ? activePill.dataset.value : ''
   const tbody = document.getElementById('servicios-tbody')
   const filtered = filtro ? servicios.filter(s => s.category === filtro) : servicios
 
@@ -125,7 +126,14 @@ function renderServiciosTable() {
   `).join('')
 }
 
-document.getElementById('filtro-categoria').addEventListener('change', renderServiciosTable)
+// Filtro por pills
+document.querySelectorAll('#filtro-servicios .pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    document.querySelectorAll('#filtro-servicios .pill').forEach(p => p.classList.remove('active'))
+    pill.classList.add('active')
+    renderServiciosTable()
+  })
+})
 
 document.getElementById('add-servicio-btn').addEventListener('click', () => {
   document.getElementById('servicio-form-title').textContent = 'Nuevo servicio'
